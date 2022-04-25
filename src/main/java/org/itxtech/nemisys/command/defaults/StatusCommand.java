@@ -6,11 +6,17 @@ import org.itxtech.nemisys.command.CommandSender;
 import org.itxtech.nemisys.math.NemisysMath;
 import org.itxtech.nemisys.utils.TextFormat;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created on 2015/11/11 by xtypr.
  * Package org.itxtech.nemisys.command.defaults in project Nukkit .
  */
 public class StatusCommand extends VanillaCommand {
+    private static final String UPTIME_FORMAT = TextFormat.RED + "%d" + TextFormat.GOLD + " days " +
+            TextFormat.RED + "%d" + TextFormat.GOLD + " hours " +
+            TextFormat.RED + "%d" + TextFormat.GOLD + " minutes " +
+            TextFormat.RED + "%d" + TextFormat.GOLD + " seconds";
 
     public StatusCommand(String name) {
         super(name, "%nemisys.command.status.description", "%nemisys.command.status.usage");
@@ -18,20 +24,11 @@ public class StatusCommand extends VanillaCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-
         Server server = sender.getServer();
         sender.sendMessage(TextFormat.GREEN + "---- " + TextFormat.WHITE + "Server status" + TextFormat.GREEN + " ----");
 
-        long time = (System.currentTimeMillis() - Nemisys.START_TIME) / 1000;
-        int seconds = NemisysMath.floorDouble(time % 60);
-        int minutes = NemisysMath.floorDouble((time % 3600) / 60);
-        int hours = NemisysMath.floorDouble(time % (3600 * 24) / 3600);
-        int days = NemisysMath.floorDouble(time / (3600 * 24));
-        String upTimeString = "" + TextFormat.RED + days + TextFormat.GOLD + " days " +
-                TextFormat.RED + hours + TextFormat.GOLD + " hours " +
-                TextFormat.RED + minutes + TextFormat.GOLD + " minutes " +
-                TextFormat.RED + seconds + TextFormat.GOLD + " seconds";
-        sender.sendMessage(TextFormat.GOLD + "Uptime: " + upTimeString);
+        long time = System.currentTimeMillis() - Nemisys.START_TIME;
+        sender.sendMessage(TextFormat.GOLD + "Uptime: " + formatUptime(time));
 
         String tpsColor = "" + TextFormat.GREEN;
         float tps = server.getTicksPerSecond();
@@ -93,5 +90,16 @@ public class StatusCommand extends VanillaCommand {
                 TextFormat.RED + server.getMaxPlayers() + TextFormat.GREEN + " max. ");
 
         return true;
+    }
+
+    private static String formatUptime(long uptime) {
+        long days = TimeUnit.MILLISECONDS.toDays(uptime);
+        uptime -= TimeUnit.DAYS.toMillis(days);
+        long hours = TimeUnit.MILLISECONDS.toHours(uptime);
+        uptime -= TimeUnit.HOURS.toMillis(hours);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(uptime);
+        uptime -= TimeUnit.MINUTES.toMillis(minutes);
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(uptime);
+        return String.format(UPTIME_FORMAT, days, hours, minutes, seconds);
     }
 }

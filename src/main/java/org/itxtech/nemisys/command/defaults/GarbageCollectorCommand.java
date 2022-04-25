@@ -3,6 +3,7 @@ package org.itxtech.nemisys.command.defaults;
 import org.itxtech.nemisys.command.CommandSender;
 import org.itxtech.nemisys.math.NemisysMath;
 import org.itxtech.nemisys.utils.TextFormat;
+import org.itxtech.nemisys.utils.ThreadCache;
 
 /**
  * Created on 2015/11/11 by xtypr.
@@ -16,9 +17,9 @@ public class GarbageCollectorCommand extends VanillaCommand {
 
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-
         long memory = Runtime.getRuntime().freeMemory();
 
+        ThreadCache.clean();
         System.gc();
 
         long freedMemory = Runtime.getRuntime().freeMemory() - memory;

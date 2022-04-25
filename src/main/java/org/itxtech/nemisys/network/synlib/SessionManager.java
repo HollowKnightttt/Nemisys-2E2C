@@ -50,7 +50,7 @@ public class SessionManager {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
-                Server.getInstance().getLogger().logException(e);
+//                Server.getInstance().getLogger().logException(e);
             }
         }
         this.server.bossGroup.shutdownGracefully();
