@@ -24,7 +24,11 @@ public enum CommandParamType {
     TEXT(ARG_TYPE_RAWTEXT), // backwards compatibility
     COMMAND(ARG_TYPE_COMMAND),
     FILE_PATH(ARG_TYPE_FILE_PATH),
-    OPERATOR(ARG_TYPE_OPERATOR);
+    OPERATOR(ARG_TYPE_OPERATOR),
+    COMPARE_OPERATOR(ARG_TYPE_COMPARE_OPERATOR),
+    FULL_INTEGER_RANGE(ARG_TYPE_FULL_INTEGER_RANGE),
+    BLOCK_STATES(ARG_TYPE_BLOCK_STATES),
+    ;
 
     private static final IntObjectHashMap<CommandParamType> BY_ID = new IntObjectHashMap<>();
 
