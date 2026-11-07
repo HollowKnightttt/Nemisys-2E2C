@@ -1,5 +1,5 @@
-# Nemisys PM1E PRIVA
-> - this is what ign (infinite games Network) use for thire server this a recreate maybe this is not perfect
+# Nemisys 2E2C
+> - 2e2c stand for 2exploit2cheat
 * Nemisys is the Java implementation of Synapse Proxy Protocol(SPP).
 * Nemisys is powered by JSynLibServer and Nukkit RakNet.
 * Nemisys is based on the GREAT [**Nukkit** Project](https://github.com/Nukkit/Nukkit).
